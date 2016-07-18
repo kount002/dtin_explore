@@ -1,5 +1,23 @@
 # -*- coding: utf-8 -*-
 
+'''
+Run retrive.py to save all data files locally
+Available as a separate script
+
+
+import urllib
+import pandas as pd
+
+query=('https://data.medicare.gov/resource/r32h-32z5.json?$limit=50000&$offset=50000') #complications endpoint
+query=('https://data.medicare.gov/resource/ppaw-hhm5.json?$limit=50000') #HAI endpoint
+query=('https://data.medicare.gov/resource/rmgi-5fhi.json?$limit=50000&$offset=50000') #Patient survey endpoint
+
+rawd=pd.read_json(query)
+rawd.to_csv('filename.csv')
+
+'''
+
+
 #import matplotlib
 #matplotlib.use('Agg') #need to comment if want to see plots in the spyder
 import matplotlib.pyplot as plt
@@ -23,6 +41,7 @@ def clean(df):
     return(df)
 
 
+#load local data file
 dataf='HOSArchive_Revised_FlatFiles_20151210/HCAHPS - Hospital.csv'
 df=pd.read_csv(dataf, header=0, encoding='cp1252')
 
@@ -46,8 +65,8 @@ fig.savefig('matrix_review.png')
 plt.clf()
 corr=dfp.corr()
 cmap=sns.diverging_palette(120, 5, as_cmap=True)
-sns.set(font_scale=1.5)
-fig=sns.clustermap(corr, cmap=cmap, mask=mask, linewidths=.5)
+sns.set(font_scale=1.6)
+fig=sns.clustermap(corr, cmap=cmap, linewidths=.5)
 plt.setp(fig.ax_heatmap.yaxis.get_majorticklabels(), rotation=0)
 fig.savefig('clustermap.png')
 
